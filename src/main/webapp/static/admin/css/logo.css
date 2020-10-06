@@ -1,0 +1,7 @@
+#header{ margin:15px auto; width:700px; overflow:hidden}
+/* DIVCSS5设置布局居中，宽度和具有清除浮动功能overflow:hidden，不设置高度 */
+h1#logo{ float:left; height:70px; background:url(logo.jpg) no-repeat; width:174px}
+h1#logo a{ display:block; width:100%; height:100%; text-indent:-9999px}
+/* DIVCSS5设置text-indent隐藏文字， display:block; 让a形成块以便同时设置宽度高度生效 */
+.right-ad{float:right}
+/* 只需要设置靠右即可 */

@@ -1,0 +1,34 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mythawk.yixing.sneaker.ISneakerDao">
+    <select id="findAll" resultType="com.mythawk.yixing.sneaker.Sneaker">
+        SELECT * FROM sneaker
+    </select>
+    <select id="findByName" resultType="com.mythawk.yixing.sneaker.Sneaker">
+        SELECT * FROM sneaker WHERE sneaker_name LIKE  "%"#{name}"%"
+    </select>
+    <select id="findByBand" resultType="com.mythawk.yixing.sneaker.Sneaker">
+        SELECT * FROM sneaker WHERE sneaker_band = #{band}
+    </select>
+    <select id="findByCategory" resultType="com.mythawk.yixing.sneaker.Sneaker">
+        SELECT * FROM sneaker WHERE sneaker_category = #{category}
+    </select>
+    <select id="findSneaker" resultType="com.mythawk.yixing.sneaker.Sneaker">
+        SELECT * FROM sneaker WHERE sneaker_name = #{name}
+    </select>
+    <insert id="saveSneaker" parameterType="com.mythawk.yixing.sneaker.Sneaker">
+        INSERT INTO sneaker (sneaker_name,sneaker_band,sneaker_price,sneaker_category,sneaker_img)
+        VALUES (#{sneaker_name},#{sneaker_band},#{sneaker_price},#{sneaker_category},#{sneaker_img})
+    </insert>
+    <delete id="deleteById" parameterType="Integer" >
+        DELETE FROM sneaker WHERE sneaker_id = #{id}
+    </delete>
+    <select id="findById" parameterType="Integer" resultType="com.mythawk.yixing.sneaker.Sneaker">
+        SELECT * FROM sneaker WHERE sneaker_id = #{id}
+    </select>
+    <update id="update" parameterType="com.mythawk.yixing.sneaker.Sneaker">
+        UPDATE sneaker SET sneaker_id =#{sneaker_id},sneaker_band = #{sneaker_band},sneaker_category = #{sneaker_category},
+        sneaker_price = #{sneaker_price},sneaker_img=#{sneaker_img} WHERE sneaker_id =#{sneaker_id}
+    </update>
+</mapper>

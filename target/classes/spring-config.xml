@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:http="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+                           http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd "
+>
+        <context:property-override></context:property-override>
+        <context:component-scan base-package="com.mythawk.yixing"></context:component-scan>
+        <context:property-override location="classpath:db.properties"></context:property-override>
+        <mvc:annotation-driven></mvc:annotation-driven>
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"></bean>
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"></property>
+        <property name="configLocation" value="classpath:mybatis-config.xml"></property>
+    </bean>
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg ref="sqlSessionFactory"></constructor-arg>
+    </bean>
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.mythawk.yixing"></property>
+        <property name="sqlSessionTemplateBeanName" value="sqlSession"></property>
+    </bean>
+    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+    <tx:annotation-driven transaction-manager="txManager"></tx:annotation-driven>
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/yixing/"></property>
+        <property name="suffix" value=".jsp"></property>
+    </bean>
+    <mvc:resources mapping="/static/**" location="/static/"></mvc:resources>
+    <mvc:annotation-driven/>
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"
+         >
+        <property name="messageConverters">
+            <list>
+                <bean class="org.springframework.http.converter.json.GsonHttpMessageConverter"></bean>
+            </list>
+        </property>
+    </bean>
+    <!-- 配置文件上传视图解析器 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- 最大文件大小，单位字节 -->
+        <property name="maxUploadSize" value="5242880"/>
+    </bean>
+</beans>

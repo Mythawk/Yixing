@@ -1,0 +1,21 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mythawk.yixing.share.IShareDao" >
+    <select id="findAll" resultType="com.mythawk.yixing.share.Share">
+        SELECT * FROM share ORDER BY date DESC
+    </select>
+    <select id="findById" resultType="com.mythawk.yixing.share.Share">
+        SELECT * FROM share WHERE id = #{id}
+    </select>
+    <insert id="insertShare" parameterType="com.mythawk.yixing.share.Share">
+        INSERT INTO share (user_phone,user_name,user_image,share_topic,date,img,share_txt,shock,parcel,support,grip,durable,scout,shoes_name)
+        VALUES (#{user_phone},#{user_name},#{user_image},#{share_topic},#{date},#{img},#{share_txt},#{shock},#{parcel},#{support},#{grip},#{durable},#{scout},#{shoes_name})
+    </insert>
+    <select id="findByName" resultType="com.mythawk.yixing.share.Share">
+        SELECT * FROM share WHERE shoes_name = #{name}
+    </select>
+    <delete id="deleteById" parameterType="Integer">
+        DELETE FROM share WHERE id = #{id}
+    </delete>
+</mapper>

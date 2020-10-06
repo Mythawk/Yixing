@@ -1,0 +1,14 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mythawk.yixing.login.IUserDao">
+    <select id="login" resultType="com.mythawk.yixing.login.User">
+        SELECT * FROM user  WHERE loginName=#{loginName}
+    </select>
+    <select id="findAll" resultType="com.mythawk.yixing.login.User">
+        SELECT  * FROM user
+    </select>
+    <select id="update" parameterType="com.mythawk.yixing.login.User">
+        UPDATE user SET pwd= #{pwd} WHERE loginName=#{loginName}
+    </select>
+</mapper>

@@ -1,0 +1,12 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mythawk.yixing.com.IComDao">
+    <select id="findById" resultType="com.mythawk.yixing.com.ComData">
+        SELECT * FROM com WHERE share_id = #{share_id} ORDER BY com_time ASC;
+    </select>
+    <insert id="insertCom" parameterType="com.mythawk.yixing.com.ComData">
+        INSERT INTO com (share_id,com_floor,com_time,com_num,com_text,com_name,com_img)
+        VALUES(#{share_id},#{com_floor},#{com_time},#{com_num},#{com_text},#{com_name},#{com_img})
+    </insert>
+</mapper>

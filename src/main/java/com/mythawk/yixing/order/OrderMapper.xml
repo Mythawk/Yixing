@@ -1,0 +1,28 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mythawk.yixing.order.IOrderDao">
+    <insert id="insertOrder" parameterType="com.mythawk.yixing.order.Order">
+        INSERT INTO iorder (order_id,user_number,sneaker_name,sneaker_image,sneaker_number,sneaker_price,sneaker_size,address_name,address_phone,address_address,address_detail,order_note,order_status)
+        VALUES (#{order_id},#{user_number},#{sneaker_name},#{sneaker_image},#{sneaker_number},#{sneaker_price},#{sneaker_size},#{address_name},#{address_phone},#{address_address},#{address_detail},#{order_note},#{order_status})
+    </insert>
+    <select id="selectOrderByStatus" resultType="com.mythawk.yixing.order.OrderData">
+        SELECT order_id , order_status FROM iorder WHERE order_status = #{status} AND user_number = #{numb}  GROUP BY order_id;
+    </select>
+    <select id="selectOrderById" resultType="com.mythawk.yixing.order.Order" parameterType="com.mythawk.yixing.order.Order">
+        SELECT * FROM iorder WHERE order_id =#{order_id}
+    </select>
+    <update id="editOrderStatus" parameterType="com.mythawk.yixing.order.Order" >
+        UPDATE iorder SET order_status = #{order_status}
+        WHERE order_id = #{order_id}
+    </update>
+    <delete id="deleteOrderById" parameterType="com.mythawk.yixing.order.Order">
+        DELETE FROM iorder WHERE order_id = #{order_id}
+    </delete>
+    <select id="selectAll" resultType="com.mythawk.yixing.order.OrderData" >
+        SELECT order_id , order_status FROM iorder WHERE user_number = #{numb}  GROUP BY order_id
+    </select>
+    <select id="findByStatus" resultType="com.mythawk.yixing.order.Order">
+        SELECT * FROM iorder WHERE order_status = #{status} GROUP BY order_id ;
+    </select>
+</mapper>
